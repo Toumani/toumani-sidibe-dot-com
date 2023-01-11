@@ -39,7 +39,7 @@ interface HomeProps {
 
 const Home = ({ articles, apps, employments }: HomeProps) => {
 	return (
-		<div className="px-4 space-y-12 bg-gray-900">
+		<div className="px-4">
 			<Head>
 				<title>Toumani Sidibe</title>
 				<meta name="description" content="Toumani Sidibe's personal website" />
@@ -66,7 +66,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 				</ul>
 			</header>
 
-			<main className="flex flex-col space-y-8">
+			<main className="flex flex-col space-y-8 mt-12">
 				<section className="flex flex-col space-y-6">
 					{
 						articles.map(article => (
@@ -138,10 +138,6 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 					</MainSection>
 				</div>
 			</main>
-
-			<footer>
-
-			</footer>
 		</div>
 	)
 }
