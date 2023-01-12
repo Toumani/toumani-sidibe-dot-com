@@ -39,17 +39,17 @@ interface HomeProps {
 
 const Home = ({ articles, apps, employments }: HomeProps) => {
 	return (
-		<div className="px-4">
+		<div className="flex flex-col items-start px-4 lg:px-12">
 			<Head>
 				<title>Toumani Sidibe</title>
 				<meta name="description" content="Toumani Sidibe's personal website" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<header className="flex flex-col justify-start space-y-4">
-				<Image className="self-center rounded-full" src="/images/avatar.jpg" alt="Toumani Sidibe" width={128} height={128} />
-				<h1 className="text-3xl text-white font-bold">Software developer and amateur musician</h1>
-				<p className="text-gray-400">
+			<header className="flex flex-col justify-start space-y-4 max-w-3xl">
+				<Image className="self-center rounded-full lg:self-start" src="/images/avatar.jpg" alt="Toumani Sidibe" width={128} height={128} />
+				<h1 className="text-3xl text-white font-bold lg:text-5xl">Software developer and amateur musician</h1>
+				<p className="text-gray-400 lg:text-lg">
 					I’m Toumani, a software developer based in Morocco.
 					I enjoy building web apps and playing around with cutting edge technologies that take software development to the next level.
 				</p>
@@ -66,8 +66,8 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 				</ul>
 			</header>
 
-			<main className="flex flex-col space-y-8 mt-12">
-				<section className="flex flex-col space-y-6">
+			<main className="flex flex-col gap-8 mt-12 lg:flex-row">
+				<section className="flex flex-col space-y-6 lg:shrink-5">
 					{
 						articles.map(article => (
 							<Link key={article.id} href={`/articles/${article.id}`} >
@@ -89,7 +89,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 						<p className="text-sm">Get notified when I publish something new, and unsubscribe at any time.</p>
 						<form className="flex flex-row space-x-4 mt-2">
 							<input
-								className="grow min-w-0 px-4 py-2 rounded-lg border-gray-700 bg-gray-700 text-zinc-200 placeholder:text-zinc-500 focus:border-teal-600 focus:ring-teal-600 focus:outline-none focus:ring-4"
+								className="grow w-full min-w-0 px-4 py-2 rounded-lg border-gray-700 bg-gray-700 text-zinc-200 placeholder:text-zinc-500 focus:border-teal-600 focus:ring-teal-600 focus:outline-none focus:ring-4"
 								type="email"
 								name="email"
 								placeholder="Email address"
@@ -150,7 +150,7 @@ interface MainSectionProps extends PropsWithChildren {
 const MainSection = ({ title, icon, children }: MainSectionProps) => {
 	const styledIcon = React.createElement(icon, { className: 'h-6 h-6 text-gray-400' });
 	return (
-		<section className="flex flex-col space-y-4 p-4 rounded-2xl border-solid border-2 border-gray-800">
+		<section className="flex flex-col space-y-4 p-4 rounded-2xl border-solid border-2 border-gray-700">
 			<header className="flex flex-row items-center space-x-2">
 				<span>{ styledIcon }</span>
 				<h2 className="text-lg font-bold">{ title }</h2>

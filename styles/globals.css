@@ -35,3 +35,9 @@ body {
   line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+@media (min-width: 1024px) {
+  .lg\:shrink-5 {
+    flex-shrink: 5;
+  }
+}
