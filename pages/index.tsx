@@ -8,6 +8,7 @@ import FormattedDate from "../components/FormattedDate";
 import { BuildingOfficeIcon, CodeBracketIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { ArrowSmallDownIcon } from "@heroicons/react/24/outline";
 import React, { PropsWithChildren } from "react";
+import PlayWithMe from "../components/PlayWithMe";
 
 interface Article {
 	id: string,
@@ -65,6 +66,8 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 					</li>
 				</ul>
 			</header>
+
+			<PlayWithMe />
 
 			<main className="flex flex-col gap-8 mt-12 lg:flex-row">
 				<section className="flex flex-col space-y-6 lg:shrink-5">
