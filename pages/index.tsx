@@ -40,7 +40,7 @@ interface HomeProps {
 
 const Home = ({ articles, apps, employments }: HomeProps) => {
 	return (
-		<div className="flex flex-col items-start px-4 lg:px-12">
+		<div className="flex flex-col items-start gap-16 px-4 lg:px-12">
 			<Head>
 				<title>Toumani Sidibe</title>
 				<meta name="description" content="Toumani Sidibe's personal website" />
@@ -69,7 +69,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 
 			<PlayWithMe />
 
-			<main className="flex flex-col gap-8 mt-12 lg:flex-row">
+			<main className="flex flex-col gap-8 lg:flex-row">
 				<section className="flex flex-col space-y-6 lg:shrink-5">
 					{
 						articles.map(article => (
