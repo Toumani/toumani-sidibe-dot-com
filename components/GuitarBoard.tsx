@@ -1,11 +1,11 @@
 import React, {useRef} from "react";
 import { Key } from "./PlayWithMe";
 
-export default function GuitarBoard({ keyPressed }: { keyPressed: (Key | null) }) {
+export default function GuitarBoard({ keyHovered }: { keyHovered: (Key | null) }) {
 	const guitarImageRef = useRef<HTMLImageElement>(null);
 	const interStringHeight = guitarImageRef.current !== null ? guitarImageRef.current.height / 40 : 10
 
-	const { stringNb, fretNb } = keyPressed == null ? { stringNb: 6, fretNb: 0 } : getGuitarPosition(keyPressed);
+	const { stringNb, fretNb } = keyHovered == null ? { stringNb: 6, fretNb: 0 } : getGuitarPosition(keyHovered);
 	let handImageSrc: string;
 	switch (fretNb) {
 		case 0: handImageSrc = 'hand-off'; break;

@@ -1,6 +1,7 @@
 import PianoRoll from "./PianoRoll";
 import { useState } from "react";
 import GuitarBoard from "./GuitarBoard";
+import { keys } from "../lib/constants";
 
 
 export interface Key {
@@ -8,7 +9,16 @@ export interface Key {
 	scale: 0 | 1 | 2,
 }
 export default function PlayWithMe() {
-	const [ keyPressed, setKeyPressed] = useState<Key | null>(null);
+	const [ keyHovered, setKeyHovered ] = useState<Key | null>(null);
+
+	const playNote = (key: Key) => {
+		const audioElement = document.getElementById(`${key.note + key.scale}-key`) as HTMLAudioElement
+		if (audioElement) {
+			audioElement.currentTime = 0;
+			audioElement.play();
+		}
+	}
+
 	return (
 		<section className="flex flex-col items-center w-full">
 			<header className="self-start">
@@ -19,9 +29,13 @@ export default function PlayWithMe() {
 				</p>
 			</header>
 			<div>
-				<PianoRoll onKeyPressed={setKeyPressed} />
+				<PianoRoll onKeyHover={setKeyHovered} onKeyPressed={playNote} />
 			</div>
-			<GuitarBoard keyPressed={keyPressed} />
+			<GuitarBoard keyHovered={keyHovered} />
+			{ keys.map(key => {
+				const id = key.note + key.scale;
+				return <audio key={id} id={`${id}-key`} className="hidden" src={`/play-with-me/audio/${id.replace('#', 's')}.mp3`} />
+			}) }
 		</section>
 	)
 }
