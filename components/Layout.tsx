@@ -14,7 +14,9 @@ const Layout = ({ children }: PropsWithChildren) => {
 		<div className="flex flex-row justify-center bg-gray-900">
 			<div className="flex flex-col bg-gray-800 max-w-5xl">
 				<Nav />
-				{ children }
+				<div className="flex flex-col items-start gap-16 px-4 lg:px-12">
+					{ children }
+				</div>
 				<footer className="flex flex-row justify-center mt-32 py-12 border-solid border-t-2 border-gray-700">
 					<ul className="flex flex-row justify-evenly gap-6 text-zinc-400">
 						{ pages.map(page => <li key={page.url}><Link href={page.url}>{ page.name }</Link></li>)}

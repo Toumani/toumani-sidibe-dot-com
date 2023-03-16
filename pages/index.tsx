@@ -40,19 +40,23 @@ interface HomeProps {
 
 const Home = ({ articles, apps, employments }: HomeProps) => {
 	return (
-		<div className="flex flex-col items-start gap-16 px-4 lg:px-12">
+		<>
 			<Head>
 				<title>Toumani Sidibe</title>
 				<meta name="description" content="Toumani Sidibe's personal website" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<header className="flex flex-col justify-start space-y-4 max-w-3xl">
+			<header className="flex flex-col justify-start space-y-4 lg:max-w-3xl">
 				<Image className="self-center rounded-full lg:self-start" src="/images/avatar.jpg" alt="Toumani Sidibe" width={128} height={128} />
 				<h1 className="text-3xl text-white font-bold lg:text-5xl">Software developer and amateur musician</h1>
 				<p className="text-gray-400 lg:text-lg">
 					I’m Toumani, a software developer based in Morocco.
-					I enjoy building web apps and playing around with cutting edge technologies that take software development to the next level.
+					I enjoy building web apps and playing around with cutting edge technologies that take software development to the next level.<br />
+					<Link href={`/about`}>
+						<span className="text-teal-600 cursor-pointer">Learn more</span>
+						<ChevronRightIcon className="inline h-3 h-3 ml-2 text-teal-600" strokeWidth={4} />
+					</Link>
 				</p>
 				<ul className="flex flex-row justify-start space-x-8">
 					<li>
@@ -73,7 +77,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 				<section className="flex flex-col space-y-6 lg:shrink-5">
 					{
 						articles.map(article => (
-							<Link key={article.id} href={`/articles/${article.id}`} >
+							<Link key={article.id} href={`/articles/${article.id}`}>
 								<article className="flex flex-col space-y-2">
 									<FormattedDate dateString={article.publishDateStr} />
 									<h3 className="text-xl font-bold">{ article.title }</h3>
@@ -141,7 +145,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 					</MainSection>
 				</div>
 			</main>
-		</div>
+		</>
 	)
 }
 
