@@ -43,12 +43,10 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 		<>
 			<Head>
 				<title>Toumani Sidibe</title>
-				<meta name="description" content="Toumani Sidibe's personal website" />
-				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<header className="flex flex-col justify-start space-y-4 lg:max-w-3xl">
-				<Image className="self-center rounded-full lg:self-start" src="/images/avatar.jpg" alt="Toumani Sidibe" width={128} height={128} />
+				<Image className="self-center rounded-full lg:self-start" src="/images/avatar.jpg" alt="Toumani Sidibe" width={172} height={172} />
 				<h1 className="text-3xl text-white font-bold lg:text-5xl">Software developer and amateur musician</h1>
 				<p className="text-gray-400 lg:text-lg">
 					I’m Toumani, a software developer based in Morocco.
@@ -218,6 +216,7 @@ export const getStaticProps: GetStaticProps<{ articles: Article[] }> = async () 
 
 	return {
 		props: {
+			name: 'home',
 			articles,
 			apps,
 			employments

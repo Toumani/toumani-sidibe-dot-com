@@ -11,7 +11,7 @@ export default function PianoRoll({ onKeyHover, onKeyPressed }: { onKeyHover: (k
 	const handleInterKeyUnhover = (key: SVGRectElement) => { key.style.fill = '#000'; }
 
 	return (
-		<svg viewBox="0 0 595 170" xmlns="http://www.w3.org/2000/svg" width="245pt" height="170pt">
+		<svg viewBox="0 0 595 170" xmlns="http://www.w3.org/2000/svg" width="245pt" height="100pt">
 			{ wholeKey.map((key, index) => {
 				const keyRef = useRef<SVGRectElement>(null);
 				const onMouseEnter = useCallback(() => {
