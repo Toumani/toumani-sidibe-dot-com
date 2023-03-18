@@ -41,3 +41,17 @@ body {
     flex-shrink: 5;
   }
 }
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  position: absolute;
+  visibility: hidden;
+  z-index: 10;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

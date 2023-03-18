@@ -6,6 +6,11 @@ import { GlobeAltIcon } from "@heroicons/react/24/solid";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { GithubMarkIcon } from "../components/icons";
 
+interface Tool {
+	id: string,
+	name: string,
+}
+
 interface App {
 	id: string,
 	name: string,
@@ -13,7 +18,7 @@ interface App {
 	longDescription: string,
 	url: string,
 	githubUrl: string,
-	tools: string[],
+	tools: Tool[],
 }
 
 const Apps = ({ apps }: { apps: App[]}) => {
@@ -59,7 +64,12 @@ const AppCard = ({ app }: AppCardProps) => {
 			<div>
 				<div className="relative">
 					<div className="flex flex-row gap-8 p-4 absolute top-0 left-0 right-0 bg-black/75">
-						{ tools.map(tool => <Image key={tool} src={`/logos/${tool}.png`} alt={tool} width={32} height={32} />) }
+						{ tools.map(tool =>
+							<div className="tooltip">
+								<span className="tooltiptext bottom-8 px-4 py-2 bg-gray-700 text-gray-400 font-semibold rounded-lg">{ tool.name }</span>
+								<Image key={tool.id} src={`/logos/${tool.id}.png`} alt={tool.name} width={32} height={32} />
+							</div>
+						)}
 					</div>
 				</div>
 				<img className="w-full" src={`/logos/${id}.png`} alt={`${app.name} logo`} />
@@ -102,7 +112,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			longDescription: "Noties is your friend when it comes to organising one's tasks in a simple yet convenient way. Worried about your privacy? Not to worry. Noties does not send data to a server. All your data belong to your device.",
 			url: 'https://noties-v2-toumani.vercel.app',
 			githubUrl: 'https://github.com/Toumani/noties-v2',
-			tools: ['nextjs', 'tailwindcss'],
+			tools: [{ id: 'nextjs', name: 'Next.js' }, { id: 'ionic', name: 'Ionic' }, { id: 'tailwindcss', name: 'Tailwind CSS' }],
 		},
 		{
 			id: 'wordament-solver',
@@ -111,7 +121,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			longDescription: "Ever wanted to solve Microsoft's puzzle game, Wordament? Or any other word puzzle game? Wordament Solver has you covered! Just fill the board and watch the magic.",
 			url: 'https://wordament-solver.toumanisidibe.com',
 			githubUrl: 'https://github.com/Toumani/wordament-solver',
-			tools: ['solidjs', 'ktor'],
+			tools: [{ id: 'solidjs', name: 'SolidJS' }, { id: 'ktor', name: 'Ktor' }],
 		},
 	];
 
