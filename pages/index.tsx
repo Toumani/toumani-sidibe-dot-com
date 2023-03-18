@@ -216,7 +216,7 @@ export const getStaticProps: GetStaticProps<{ articles: Article[] }> = async () 
 
 	return {
 		props: {
-			name: 'home',
+			name: 'Home',
 			articles,
 			apps,
 			employments

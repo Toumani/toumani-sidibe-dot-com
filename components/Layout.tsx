@@ -11,14 +11,14 @@ const pages = [
 ]
 
 interface LayoutProps extends PropsWithChildren {
-	currentPage: string,
+	currentPageName: string,
 }
 
-const Layout = ({ currentPage, children }: LayoutProps) => {
+const Layout = ({ currentPageName, children }: LayoutProps) => {
 	return (
 		<div className="flex flex-row justify-center bg-gray-900">
 			<div className="flex flex-col bg-gray-800 max-w-5xl">
-				<Nav currentPage={currentPage} />
+				<Nav currentPageName={currentPageName} />
 				<div className="flex flex-col items-start gap-24 px-4 lg:px-12">
 					{ children }
 				</div>
@@ -32,8 +32,8 @@ const Layout = ({ currentPage, children }: LayoutProps) => {
 	)
 }
 
-function Nav({ currentPage }: { currentPage: string }) {
-	const isHomePage = currentPage && currentPage === 'home';
+function Nav({ currentPageName }: { currentPageName: string }) {
+	const isHomePage = currentPageName && currentPageName === 'Home';
 	return (
 		<>
 			<nav className="flex flex-row-reverse lg:flex-row items-center justify-between lg:justify-around pt-6 lg:pt-0 pb-8 lg:pb-0 px-6">
@@ -59,7 +59,7 @@ function Nav({ currentPage }: { currentPage: string }) {
 									</button>
 									<nav className="flex flex-col items-stretch text-sm text-zinc-400">
 										{ pages.map(page => {
-											const isCurrentPage = currentPage === page.url.substring(1)
+											const isCurrentPage = currentPageName === page.name
 											return (
 												<React.Fragment key={page.url}>
 													<Link
@@ -85,11 +85,11 @@ function Nav({ currentPage }: { currentPage: string }) {
 				}
 				<ul className="hidden lg:flex flex-row justify-end gap-8 my-8 py-2 px-10 rounded-full bg-gray-700">
 					{ pages.map(page => {
-						const isCurrentPage = currentPage === page.url.substring(1)
+						const isCurrentPage = currentPageName === page.name
 						return (
 							<li key={page.url}>
 								<Link className={isCurrentPage ? "text-teal-600 font-semibold" : "text-zinc-300 hover:text-teal-600 transition"} href={page.url}>
-									{page.name}
+									{ page.name }
 								</Link>
 							</li>
 						)

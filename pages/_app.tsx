@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout currentPage={pageProps.name}>
+    <Layout currentPageName={pageProps.name}>
       <Component {...pageProps} />
     </Layout>
   )

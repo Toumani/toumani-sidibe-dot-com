@@ -87,7 +87,7 @@ const Social = ({ icon, url, text }: SocialProps) => {
 export const getStaticProps: GetStaticProps = async () => {
 	return {
 		props: {
-			name: 'about'
+			name: 'About'
 		}
 	}
 }

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Document() {
 	return (
-		<Html>
+		<Html lang="en">
 			<Head>
 				<meta name="description" content="Toumani Sidibe's personal website" />
 				<link rel="icon" href="/images/avatar.jpg" />
