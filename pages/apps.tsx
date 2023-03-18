@@ -67,7 +67,7 @@ const AppCard = ({ app }: AppCardProps) => {
 						{ tools.map(tool =>
 							<div className="tooltip">
 								<span className="tooltiptext bottom-8 px-4 py-2 bg-gray-700 text-gray-400 font-semibold rounded-lg">{ tool.name }</span>
-								<Image key={tool.id} src={`/logos/${tool.id}.png`} alt={tool.name} width={32} height={32} />
+								<Image key={tool.id} className="inline" src={`/logos/${tool.id}.png`} alt={tool.name} width={32} height={32} />
 							</div>
 						)}
 					</div>
@@ -112,7 +112,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			longDescription: "Noties is your friend when it comes to organising one's tasks in a simple yet convenient way. Worried about your privacy? Not to worry. Noties does not send data to a server. All your data belong to your device.",
 			url: 'https://noties-v2-toumani.vercel.app',
 			githubUrl: 'https://github.com/Toumani/noties-v2',
-			tools: [{ id: 'nextjs', name: 'Next.js' }, { id: 'ionic', name: 'Ionic' }, { id: 'tailwindcss', name: 'Tailwind CSS' }],
+			tools: [{ id: 'nextjs', name: 'Next.js' }, { id: 'ionic', name: 'Ionic' }, { id: 'tailwindcss', name: 'Tailwind CSS' }, { id: 'pwa', name: 'Progressive Web App' }],
 		},
 		{
 			id: 'wordament-solver',

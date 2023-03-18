@@ -5,7 +5,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { GithubMarkIcon, InstagramIcon, LinkedInIcon } from "../components/icons";
 import Link from "next/link";
 import FormattedDate from "../components/FormattedDate";
-import { BuildingOfficeIcon, CodeBracketIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
+import { BuildingOfficeIcon, CodeBracketIcon } from "@heroicons/react/24/solid";
 import { ArrowSmallDownIcon } from "@heroicons/react/24/outline";
 import React, { PropsWithChildren } from "react";
 import PlayWithMe from "../components/PlayWithMe";
@@ -28,8 +28,12 @@ interface Employment {
 	id: string,
 	company: string,
 	role: string,
+	startMonth: number,
 	startYear: number,
+	endMonth: number | null,
 	endYear: number | null,
+	assignments: string[],
+	keywords: string[],
 }
 
 interface HomeProps {
@@ -71,8 +75,23 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 
 			<PlayWithMe />
 
-			<main className="flex flex-col gap-8 lg:flex-row">
-				<section className="flex flex-col space-y-6 lg:shrink-5">
+			<main className="flex flex-col lg:flex-row gap-8 lg:gap-4 w-full">
+				<section className="flex flex-col space-y-6 lg:shrink-5 md:pl-12 md:border-l-4 md:border-gray-700">
+					{
+						employments.map(employment => (
+							<div className="relative">
+								<span className="hidden md:block absolute w-4 h-4 rounded-full bg-teal-600" style={{ top: '0.5rem', left: '-3.65rem' }}></span>
+								<h4 className="text-2xl font-semibold">{ employment.role } at { employment.company }</h4>
+								<p className="ml-1 font-light text-sm italic text-gray-400">{ `${employment.startMonth}/${employment.startYear} — ${employment.endMonth ? employment.endMonth + '/' + employment.endYear : 'Present'}` }</p>
+								<ul className="mt-1 list-disc list-inside font-light">
+									{ employment.assignments.map(assignment => <li>{ assignment }</li>) }
+								</ul>
+								<ul className="flex flex-row gap-2 mt-2 text-sm">
+									{ employment.keywords.map(keyword => <li className="px-2 py-1 bg-teal-600 rounded-full">{ keyword }</li>) }
+								</ul>
+							</div>
+						))
+					}
 					{
 						articles.map(article => (
 							<Link key={article.id} href={`/articles/${article.id}`}>
@@ -90,23 +109,23 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 					}
 				</section>
 				<div className="flex flex-col space-y-6">
-					<MainSection title="Stay up to date" icon={EnvelopeIcon}>
-						<p className="text-sm">Get notified when I publish something new, and unsubscribe at any time.</p>
-						<form className="flex flex-row space-x-4 mt-2">
-							<input
-								className="grow w-full min-w-0 px-4 py-2 rounded-lg border-gray-700 bg-gray-700 text-zinc-200 placeholder:text-zinc-500 focus:border-teal-600 focus:ring-teal-600 focus:outline-none focus:ring-4"
-								type="email"
-								name="email"
-								placeholder="Email address"
-								aria-label="Email address"
-								required
-							/>
-							<button className="px-4 py-2 rounded-lg bg-teal-600 font-bold">Join</button>
-						</form>
-					</MainSection>
-					<MainSection title="My apps" icon={CodeBracketIcon}>
+					{/*<MainSection title="Stay up to date" icon={EnvelopeIcon}>*/}
+					{/*	<p className="text-sm">Get notified when I publish something new, and unsubscribe at any time.</p>*/}
+					{/*	<form className="flex flex-row space-x-4 mt-2">*/}
+					{/*		<input*/}
+					{/*			className="grow w-full min-w-0 px-4 py-2 rounded-lg border-gray-700 bg-gray-700 text-zinc-200 placeholder:text-zinc-500 focus:border-teal-600 focus:ring-teal-600 focus:outline-none focus:ring-4"*/}
+					{/*			type="email"*/}
+					{/*			name="email"*/}
+					{/*			placeholder="Email address"*/}
+					{/*			aria-label="Email address"*/}
+					{/*			required*/}
+					{/*		/>*/}
+					{/*		<button className="px-4 py-2 rounded-lg bg-teal-600 font-bold">Join</button>*/}
+					{/*	</form>*/}
+					{/*</MainSection>*/}
+					<MainSection title="My apps" url="/apps" icon={CodeBracketIcon}>
 						{ apps.map(app => (
-							<div key={app.id} className="flex flex-row items-center justify-between">
+							<div key={app.id} className="flex flex-row items-center justify-between gap-4">
 								<div className="flex flex-row items-center space-x-4">
 									<Image className="rounded-full" src={`/logos/${app.id}.png`} alt={app.name} width={36} height={36} />
 									<div className="flex flex-col justify-between">
@@ -118,7 +137,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 							</div>
 						))}
 					</MainSection>
-					<MainSection title="Work" icon={BuildingOfficeIcon}>
+					<MainSection title="Work" url="/resume" icon={BuildingOfficeIcon}>
 						<div className="flex flex-col items-stretch space-y-8">
 							{ employments.map(employment => {
 								return (
@@ -129,7 +148,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 											<h4 className="text-base font-bold">{employment.company}</h4>
 											<div className="flex flex-row justify-between text-sm text-gray-400">
 												<span>{ employment.role }</span>
-												<span>{ `${employment.startYear} — ${employment.endYear == null ? 'Present' : employment.endYear}` }</span>
+												<span>{`${employment.startYear}${employment.startYear !== employment.endYear ? ` — ${employment.endYear == null ? 'Present' : employment.endYear}` : '' }`}</span>
 											</div>
 										</div>
 									</div>
@@ -149,16 +168,17 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 
 interface MainSectionProps extends PropsWithChildren {
 	title: string,
+	url: string,
 	icon: (props: React.ComponentProps<'svg'> & { title?: string; titleId?: string; }) => JSX.Element,
 }
 
-const MainSection = ({ title, icon, children }: MainSectionProps) => {
+const MainSection = ({ title, url, icon, children }: MainSectionProps) => {
 	const styledIcon = React.createElement(icon, { className: 'h-6 h-6 text-gray-400' });
 	return (
 		<section className="flex flex-col space-y-4 p-4 rounded-2xl border-solid border-2 border-gray-700">
 			<header className="flex flex-row items-center space-x-2">
 				<span>{ styledIcon }</span>
-				<h2 className="text-lg font-bold">{ title }</h2>
+				<h2 className="text-lg font-bold hover:text-teal-600 transition"><Link href={url}>{ title }</Link></h2>
 			</header>
 			{ children }
 		</section>
@@ -166,21 +186,8 @@ const MainSection = ({ title, icon, children }: MainSectionProps) => {
 }
 
 export const getStaticProps: GetStaticProps<{ articles: Article[] }> = async () => {
-	// mock
-	const articles: Article[] = [
-		{
-			id: 'compose-for-web-a-game-changer-for-kotlin-developers',
-			title: 'Compose for web: a game changer for Kotlin developers',
-			content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vestibulum ligula libero, vel hendrerit erat lacinia in. Vivamus ut molestie magna. Pellentesque finibus consectetur lacus in gravida. Nunc est odio, porta ac nisi in, congue vulputate enim. Aenean ut viverra erat. Nunc pretium pulvinar augue nec gravida. Ut congue risus lectus, nec ornare neque scelerisque eget. Curabitur ac lacus vitae enim auctor imperdiet. Nunc feugiat sapien ipsum, vitae iaculis metus feugiat sed. Cras ac vehicula dui. Vestibulum et lacus ac velit maximus pretium sit amet at nunc. Curabitur nulla est, consectetur non dapibus et, finibus vel erat. Ut dapibus quis libero ut eleifend. Aenean sit amet ornare felis. Cras lacinia pellentesque tellus, eget ultricies nulla consectetur sit amet.',
-			publishDateStr: new Date(2023, 9, 23).toISOString(),
-		},
-		{
-			id: 'my-website-tech-stack-deployment',
-			title: 'My website tech stack + deployment',
-			content: 'Nulla eu lacinia leo. Duis pretium velit id risus lobortis, vel lacinia erat vehicula. Vestibulum lobortis, mauris eget faucibus porttitor, ipsum purus vulputate mauris, venenatis ornare justo orci eu nunc. Fusce sollicitudin urna non nulla vulputate, a pretium felis imperdiet. Cras vitae nulla vestibulum, pulvinar tellus a, varius augue. Suspendisse suscipit vehicula justo. Phasellus augue mauris, maximus euismod sem et, ultricies elementum turpis. Nulla pulvinar dapibus ligula. Curabitur tempor, justo in finibus volutpat, augue ex pellentesque dui, vel blandit ante leo at metus. Aliquam arcu est, varius sit amet molestie convallis, viverra vel nunc. Sed vel ipsum aliquet turpis finibus ornare vel eu tellus. Suspendisse potenti. ',
-			publishDateStr: new Date(2023, 8, 5).toISOString(),
-		},
-	];
+	// Articles feature is not yet implemented
+	const articles: Article[] = [];
 
 	const apps: App[] = [
 		{
@@ -202,15 +209,44 @@ export const getStaticProps: GetStaticProps<{ articles: Article[] }> = async () 
 			id: 'salesforce',
 			company: 'Salesforce',
 			role: 'Technical Consultant',
+			startMonth: 1,
 			startYear: 2023,
-			endYear: null
+			endMonth: 3,
+			endYear: 2023,
+			assignments: [
+				'Learned Apex programming language and Lightning Web Component technology',
+				'Earned experience on the Salesforce platform',
+			],
+			keywords: ['Apex', 'LWC', 'Salesforce']
 		},
 		{
 			id: 'perenity-software',
 			company: 'Perenity Software',
 			role: 'Java EE Consultant',
+			startMonth: 11,
 			startYear: 2019,
+			endMonth: 11,
 			endYear: 2022,
+			assignments: [
+				'Designed a fluent functional API to streamline Swing UI creation',
+				'Set up desktop application architecture and migrated from Java Swing to JavaFX',
+				'Created middleware to allow communication between web front end and back end using REST'
+			],
+			keywords: ['Java Swing', 'JavaFX', 'Spring Boot', 'EJB', 'Oracle']
+		},
+		{
+			id: 'adria-bt',
+			company: 'Adria Business & Technology',
+			role: 'Full Stack Developer',
+			startMonth: 7,
+			startYear: 2019,
+			endMonth: 10,
+			endYear: 2019,
+			assignments: [
+				'Participated in migrating from monolithic to microservices.',
+				'In charge of refactoring code to match best practice guidelines.',
+			],
+			keywords: ['React', 'Spring Boot', 'SOAP']
 		}
 	];
 

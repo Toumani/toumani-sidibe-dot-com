@@ -7,7 +7,7 @@ import Image from "next/image";
 const pages = [
 	{ url: '/about', name: 'About' },
 	{ url: '/apps', name: 'Apps' },
-	{ url: '/articles', name: 'Articles' },
+	{ url: '/resume', name: 'Resume' },
 ]
 
 interface LayoutProps extends PropsWithChildren {
