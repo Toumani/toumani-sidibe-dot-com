@@ -3,6 +3,7 @@ import React from "react";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import { GlobeAltIcon } from "@heroicons/react/24/solid";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { GithubMarkIcon } from "../components/icons";
 
 interface App {
@@ -54,7 +55,7 @@ interface AppCardProps {
 const AppCard = ({ app }: AppCardProps) => {
 	const { id, tools, name, longDescription, url, githubUrl } = app;
 	return (
-		<div className="w-full shadow-xl rounded-b-2xl shadow-gray-600">
+		<div className="lg:grid lg:grid-cols-2 w-full shadow-xl rounded-b-2xl shadow-gray-600">
 			<div>
 				<div className="relative">
 					<div className="flex flex-row gap-8 p-4 absolute top-0 left-0 right-0 bg-black/75">
@@ -63,26 +64,29 @@ const AppCard = ({ app }: AppCardProps) => {
 				</div>
 				<img className="w-full" src={`/logos/${id}.png`} alt={`${app.name} logo`} />
 			</div>
-			<div className="p-2 bg-gray-700 rounded-b-2xl">
-				<div>
-					<h3 className="mb-2 text-xl font-bold">{ name }</h3>
-					<p className="text-gray-400 font-light">{ longDescription }</p>
+			<div className="lg:flex lg:flex-col lg:justify-between bg-gray-700 rounded-b-2xl lg:rounded-bl-none">
+				<div className="p-2 grow">
+					<h3 className="lg:mt-2 mb-2 text-xl lg:text-2xl font-bold">{ name }</h3>
+					<p className="lg:text-lg text-gray-400 font-light">{ longDescription }</p>
 				</div>
-				<div>
-					<h4 className="mt-4 text-lg font-bold">Links</h4>
+				<div className="flex flex-col grow justify-between p-2 bg-gray-600/50 rounded-b-2xl lg:rounded-bl-none">
+					<h4 className="lg:mt-2 mb-2 text-xl lg:text-2xl font-bold">Links</h4>
 					<ul className="space-y-2">
 						<li className="flex flex-row items-center text-sm space-x-4">
 							<GlobeAltIcon className="text-gray-500" width={20} height={20} />
-							<a className="text-teal-600 cursor-pointer underline decoration-dotted hover:text-teal-800 transition" href={url}>{ url }</a>
+							<a className="lg:text-lg text-teal-600 cursor-pointer underline decoration-dotted hover:text-teal-800 transition" href={url}>{ url }</a>
 						</li>
 						<li className="flex flex-row items-center text-sm space-x-4">
 							<GithubMarkIcon width={20} height={20} />
-							<a className="text-teal-600 cursor-pointer underline decoration-dotted hover:text-teal-800 transition" href={githubUrl}>{ githubUrl }</a>
+							<a className="lg:text-lg text-teal-600 cursor-pointer underline decoration-dotted hover:text-teal-800 transition" href={githubUrl}>{ githubUrl }</a>
 						</li>
 					</ul>
-				</div>
-				<div className="mt-8 mb-4 pr-4 text-right">
-					<a className="px-4 py-2 rounded-lg bg-teal-600 font-bold" href={url} target="_blank">Open</a>
+					<div className="mt-8 mb-4 pr-4 text-right">
+						<a className="px-4 py-2 rounded-lg bg-teal-600 font-bold" href={url} target="_blank">
+							<span>Open</span>
+							<ArrowTopRightOnSquareIcon className="inline ml-2" width={18} height={18} strokeWidth={3} />
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
