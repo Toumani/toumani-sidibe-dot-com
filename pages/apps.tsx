@@ -65,7 +65,7 @@ const AppCard = ({ app }: AppCardProps) => {
 				<div className="relative">
 					<div className="flex flex-row gap-8 p-4 absolute top-0 left-0 right-0 bg-black/75">
 						{ tools.map(tool =>
-							<div className="tooltip">
+							<div key={tool.id} className="tooltip">
 								<span className="tooltiptext bottom-8 px-4 py-2 bg-gray-700 text-gray-400 font-semibold rounded-lg">{ tool.name }</span>
 								<Image key={tool.id} className="inline" src={`/logos/${tool.id}.png`} alt={tool.name} width={32} height={32} />
 							</div>
@@ -77,18 +77,18 @@ const AppCard = ({ app }: AppCardProps) => {
 			<div className="lg:flex lg:flex-col lg:justify-between bg-gray-700 rounded-b-2xl lg:rounded-bl-none">
 				<div className="p-2 grow">
 					<h3 className="lg:mt-2 mb-2 text-xl lg:text-2xl font-bold">{ name }</h3>
-					<p className="lg:text-lg text-gray-400 font-light">{ longDescription }</p>
+					<p className="md:text-lg text-gray-400 font-light">{ longDescription }</p>
 				</div>
 				<div className="flex flex-col grow justify-between p-2 bg-gray-600/50 rounded-b-2xl lg:rounded-bl-none">
 					<h4 className="lg:mt-2 mb-2 text-xl lg:text-2xl font-bold">Links</h4>
 					<ul className="space-y-2">
 						<li className="flex flex-row items-center text-sm space-x-4">
 							<GlobeAltIcon className="text-gray-500" width={20} height={20} />
-							<a className="lg:text-lg text-teal-600 cursor-pointer underline decoration-dotted hover:text-teal-800 transition" href={url}>{ url }</a>
+							<a className="md:text-lg text-teal-600 cursor-pointer underline decoration-dotted hover:text-teal-800 transition" href={url}>{ url }</a>
 						</li>
 						<li className="flex flex-row items-center text-sm space-x-4">
 							<GithubMarkIcon width={20} height={20} />
-							<a className="lg:text-lg text-teal-600 cursor-pointer underline decoration-dotted hover:text-teal-800 transition" href={githubUrl}>{ githubUrl }</a>
+							<a className="md:text-lg text-teal-600 cursor-pointer underline decoration-dotted hover:text-teal-800 transition" href={githubUrl}>{ githubUrl }</a>
 						</li>
 					</ul>
 					<div className="mt-8 mb-4 pr-4 text-right">
@@ -118,7 +118,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			id: 'wordament-solver',
 			name: 'Wordament Solver',
 			description: 'Word puzzle resolver',
-			longDescription: "Ever wanted to solve Microsoft's puzzle game, Wordament? Or any other word puzzle game? Wordament Solver has you covered! Just fill the board and watch the magic.",
+			longDescription: "Ever wanted to solve Microsoft's famous puzzle game, Wordament? Or any other word puzzle game? Wordament Solver has you covered! Just fill the board and watch the magic.",
 			url: 'https://wordament-solver.toumanisidibe.com',
 			githubUrl: 'https://github.com/Toumani/wordament-solver',
 			tools: [{ id: 'solidjs', name: 'SolidJS' }, { id: 'ktor', name: 'Ktor' }],

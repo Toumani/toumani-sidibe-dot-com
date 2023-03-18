@@ -17,10 +17,12 @@ interface LayoutProps extends PropsWithChildren {
 const Layout = ({ currentPageName, children }: LayoutProps) => {
 	return (
 		<div className="flex flex-row justify-center bg-gray-900">
-			<div className="flex flex-col bg-gray-800 max-w-5xl">
-				<Nav currentPageName={currentPageName} />
-				<div className="flex flex-col items-start gap-24 px-4 lg:px-12">
-					{ children }
+			<div className="flex flex-col justify-between bg-gray-800 w-full max-w-5xl" style={{ minHeight: '100vh'}}>
+				<div>
+					<Nav currentPageName={currentPageName} />
+					<div className="flex flex-col items-start gap-24 px-4 lg:px-12">
+						{ children }
+					</div>
 				</div>
 				<footer className="flex flex-row justify-center mt-32 py-12 border-solid border-t-2 border-gray-700">
 					<ul className="flex flex-row justify-evenly gap-6 text-zinc-400">

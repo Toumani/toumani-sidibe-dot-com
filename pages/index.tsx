@@ -79,15 +79,15 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 				<section className="flex flex-col space-y-6 lg:shrink-5 md:pl-12 md:border-l-4 md:border-gray-700">
 					{
 						employments.map(employment => (
-							<div className="relative">
+							<div key={employment.id} className="relative">
 								<span className="hidden md:block absolute w-4 h-4 rounded-full bg-teal-600" style={{ top: '0.5rem', left: '-3.65rem' }}></span>
 								<h4 className="text-2xl font-semibold">{ employment.role } at { employment.company }</h4>
 								<p className="ml-1 font-light text-sm italic text-gray-400">{ `${employment.startMonth}/${employment.startYear} — ${employment.endMonth ? employment.endMonth + '/' + employment.endYear : 'Present'}` }</p>
 								<ul className="mt-1 list-disc list-inside font-light">
-									{ employment.assignments.map(assignment => <li>{ assignment }</li>) }
+									{ employment.assignments.map(assignment => <li key={assignment}>{ assignment }</li>) }
 								</ul>
 								<ul className="flex flex-row gap-2 mt-2 text-sm">
-									{ employment.keywords.map(keyword => <li className="px-2 py-1 bg-teal-600 rounded-full">{ keyword }</li>) }
+									{ employment.keywords.map(keyword => <li key={keyword} className="px-2 py-1 bg-teal-600 rounded-full">{ keyword }</li>) }
 								</ul>
 							</div>
 						))
