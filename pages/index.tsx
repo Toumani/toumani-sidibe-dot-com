@@ -86,7 +86,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 								<ul className="mt-1 list-disc list-inside font-light">
 									{ employment.assignments.map(assignment => <li key={assignment}>{ assignment }</li>) }
 								</ul>
-								<ul className="flex flex-row gap-2 mt-2 text-sm">
+								<ul className="flex flex-row flex-wrap gap-2 mt-2 text-sm">
 									{ employment.keywords.map(keyword => <li key={keyword} className="px-2 py-1 bg-teal-600 rounded-full">{ keyword }</li>) }
 								</ul>
 							</div>
@@ -205,6 +205,19 @@ export const getStaticProps: GetStaticProps<{ articles: Article[] }> = async () 
 	]
 
 	const employments: Employment[] = [
+		{
+			id: 'maltem-africa',
+			company: 'Maltem Africa',
+			role: 'Fullstack Developer',
+			startMonth: 4,
+			startYear: 2023,
+			endMonth: null,
+			endYear: null,
+			assignments: [
+				'Typescript, React, MaterialUI, Agile',
+			],
+			keywords: ['Typescript', 'React', 'MaterialUI', 'Agile']
+		},
 		{
 			id: 'salesforce',
 			company: 'Salesforce',

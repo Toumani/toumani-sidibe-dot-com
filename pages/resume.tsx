@@ -74,7 +74,7 @@ const ActivityView: React.FC<ActivityProps> = ({ employmentEntry }) => {
 			dateRange = `${formatDate(startDate)} — ${formatDate(endDate)}`;
 
 	return (
-		<div className="mb-3">
+		<div className="mb-2">
 			<h4 className="font-semibold">{ headline }</h4>
 			{ displayDate && <p className="text-sm text-gray-500">{ dateRange }</p> }
 			{ description.length > 0 && description.split('\n').map(line => <p key={line}>{line}</p>) }
@@ -155,7 +155,7 @@ const ResumePage: React.FC<ResumeProps> = ({ resume }: ResumeProps) => {
 								<UserIcon className="w-5 h-4 max-w-5 max-h-4 mr-2" style={{ transform: 'scale(1.25) translateY(1px)' }} />
 								<div>
 									<h2 className="text-xl font-semibold">Profile</h2>
-									<p className="mb-4">Tech enthusiast experienced in UX focused app development with excellent analytical skills.</p>
+									<p className="mb-2">Tech enthusiast experienced in UX focused app development with excellent analytical skills.</p>
 								</div>
 							</div>
 							<SectionView headline="Employment History" activities={resume.employmentHistory} icon={<BriefcaseIcon />} />
@@ -215,6 +215,18 @@ const ResumePage: React.FC<ResumeProps> = ({ resume }: ResumeProps) => {
 export const getStaticProps: GetStaticProps = async () => {
 	const resume = {
 		employmentHistory: [
+			{
+				type: 'employment',
+				title: 'Fullstack Developer',
+				employer: 'Maltem Africa',
+				city: 'Casablanca',
+				startDateJSON: { year: 2023, month: 4 },
+				endDateJSON: null,
+				description: '',
+				tasks: [
+					'Typescript, React, MaterialUI, Agile'
+				]
+			},
 			{
 				type: 'employment',
 				title: 'Technical consultant',
