@@ -84,17 +84,12 @@ const resume: Resume = {
     ],
     educations: [
         {
-            id: "ensas",
-            type: 'education',
-            role: 'Engineer in Computer Science',
-            employer: 'École Nationale des Sciences Appliquées',
-            city: 'Safi',
+            degree: 'Engineer in Computer Science',
+            school: 'École Nationale des Sciences Appliquées',
+            location: 'Safi',
             startDateJSON: { year: 2014, month: 9 },
             endDateJSON: { year: 2019, month: 6 },
             description: '',
-            assignments: [],
-            keywords: [],
-            links: []
         }
     ],
     internships: [
@@ -106,17 +101,17 @@ const resume: Resume = {
             city: 'Casablanca',
             startDateJSON: { year: 2019, month: 2 },
             endDateJSON: { year: 2019, month: 6 },
-            description: 'Developed an automated testing bot with Selenium and Cucumber.',
-            assignments: [],
+            description: '',
+            assignments: ['Developed an automated testing bot with Selenium and Cucumber.'],
             links: [],
-            keywords: []
+            keywords: ['Selenium', 'BDD', 'React', 'Spring Boot']
         }
     ],
     projects: [
         {
             id: "noties-v2",
             type: 'project',
-            role: "Project owner",
+            role: "Noties",
             employer: 'Self',
             city: '',
             startDateJSON: { year: 0, month: 0 },

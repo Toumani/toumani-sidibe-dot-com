@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { UserIcon, AcademicCapIcon, BriefcaseIcon, PresentationChartLineIcon } from '@heroicons/react/24/solid';
-import { formatDate } from "../lib/utils";
+import { UserIcon, BriefcaseIcon, PresentationChartLineIcon } from '@heroicons/react/24/solid';
+import { formatDate, formatToPeriod } from "../lib/utils";
 import Anchor from "../components/Anchor";
 import Head from "next/head";
 import {GetStaticProps} from "next";
@@ -24,7 +24,7 @@ const SectionView: React.FC<SectionProps> = ({ headline, activities, icon }) => 
 		<div className="flex flex-row items-baseline">
 			<div>{ styledIcon }</div>
 			<div>
-				<h2 className="grow text-xl font-semibold">{ headline }</h2>
+				<h2 className="grow text-lg font-bold">{ headline }</h2>
 				{ activities.map((entry, index) => <ActivityView key={index} employmentEntry={entry} />) }
 			</div>
 		</div>
@@ -64,12 +64,12 @@ const ActivityView: React.FC<ActivityProps> = ({ employmentEntry }) => {
 			dateRange = `${formatDate(startDate)} — ${formatDate(endDate)}`;
 
 	return (
-		<div className="mb-2">
-			<h4 className="font-semibold">{ headline }</h4>
-			{ displayDate && <p className="text-sm text-gray-500">{ dateRange }</p> }
+		<div className="text-sm mb-2">
+			<h4 className="text-base font-bold">{ headline }</h4>
+			{ displayDate && <p className="text-gray-500">{ dateRange }</p> }
 			{ description && description.split('\n').map(line => <p key={line}>{ line }</p>) }
-			{ assignments.length > 0 &&
-				<ul className="pl-8 list-disc list-outside">
+			{ assignments.length + keywords.length > 0 &&
+				<ul className="pl-5 list-disc list-outside">
 					{ assignments.map(task => <li key={task}>{ task }</li> )}
 					{ keywords.length && <li>{ keywords.join(", ") }</li> }
 				</ul>
@@ -106,7 +106,7 @@ const LanguageView: React.FC<SkillProps> = ({ skill }) => {
 		case 5: description = 'Native'; break;
 	}
 	return (
-		<li><span className="font-semibold">{name}</span>: <span className="text-xs">{description}</span></li>
+		<li><span className="font-semibold">{ name }</span>: <span className="text-xs">{ description }</span></li>
 	)
 }
 
@@ -145,25 +145,24 @@ const ResumePage: React.FC<ResumeProps> = ({ resume }: ResumeProps) => {
 				<div className="hidden md:block m-auto p-4 text-gray-900 bg-white"
 						 style={{ width: '210mm', height: '297mm', minWidth: '210mm', maxHeight: '297mm' }}>
 					<h1 className="pl-6 text-3xl font-bold">{ resume.fullName }</h1>
-					<p className="pl-6 text-sm">{ resume.role }</p>
-					<div className="flex flex-row justify-between w-full pt-5">
+					<p className="pl-6">{ resume.role }</p>
+					<div className="flex flex-row justify-between gap-2 w-full pt-5">
 						<div className="w-9/12" >
 							<div className="flex flex-row items-baseline">
 								<UserIcon className="w-5 h-4 max-w-5 max-h-4 mr-2" style={{ transform: 'scale(1.25) translateY(1px)' }} />
 								<div>
-									<h2 className="text-xl font-semibold">Profile</h2>
+									<h2 className="text-lg font-bold">Profile</h2>
 									<p className="mb-2">{ resume.summary }</p>
 								</div>
 							</div>
 							<SectionView headline="Employment History" activities={resume.employments} icon={<BriefcaseIcon />} />
-							<SectionView headline="Education" activities={resume.educations} icon={<AcademicCapIcon />} />
 							<SectionView headline="Internships" activities={resume.internships} icon={<BriefcaseIcon />} />
 							<SectionView headline="Personnal and Freelance Projects" activities={resume.projects} icon={<PresentationChartLineIcon />} />
 						</div>
 
-						<div className="w-1/4 space-y-5 text-sm">
+						<div className="w-1/4 space-y-5 text-xs">
 							<div>
-								<h3 className="text-md font-bold">Details</h3>
+								<h3 className="text-lg font-bold">Details</h3>
 								<ul>
 									{ resume.addressLines.map(line =>
 										<li>
@@ -175,13 +174,13 @@ const ResumePage: React.FC<ResumeProps> = ({ resume }: ResumeProps) => {
 								</ul>
 							</div>
 							<div>
-								<h3 className="text-md font-bold">Links</h3>
+								<h3 className="text-lg font-bold">Links</h3>
 								<ul>
 									{ resume.links.map(link => <li key={link.label}><Anchor href={link.url}>{ link.label }</Anchor></li>) }
 								</ul>
 							</div>
 							<div>
-								<h3 className="mb-1 text-md font-bold">Skills</h3>
+								<h3 className="mb-1 text-lg font-bold">Skills</h3>
 								{/*<ul className="space-y-2">*/}
 								{/*	{ resume.skills.map(skill => <SkillView key={skill.name} skill={skill} />) }*/}
 								{/*</ul>*/}
@@ -189,14 +188,27 @@ const ResumePage: React.FC<ResumeProps> = ({ resume }: ResumeProps) => {
 								<span className="mb-1 font-bold">Experienced: </span>{ experiencedSkillsJoined }<br />
 								<span className="mb-1 font-bold">Knowledgeable: </span>{ knowledgeableSkillsJoined }
 							</div>
+							{ resume.educations.length &&
+								<div>
+									<h3 className="mb-1 text-lg font-bold">Education</h3>
+									{ resume.educations.map(education =>
+										<>
+											<h4 className="text-md font-bold">{ `${education.school} — ${education.location}`}</h4>
+											<p className="text-gray-500">{ formatToPeriod(education.startDateJSON, education.endDateJSON) }</p>
+											<p>{ education.degree }</p>
+											<div>{ education.description }</div>
+										</>
+									)}
+								</div>
+							}
 							<div>
-								<h3 className="mb-1 text-md font-bold">Languages</h3>
+								<h3 className="mb-1 text-lg font-bold">Languages</h3>
 								<ul className="space-y-2">
 									{ resume.languages.map(skill => <LanguageView key={skill.name} skill={skill} />) }
 								</ul>
 							</div>
 							<div>
-								<h3 className="mb-1 text-md font-bold">Hobbies</h3>
+								<h3 className="mb-1 text-lg font-bold">Hobbies</h3>
 								{ resume.hobbies.map(hobby => <div key={hobby} className="text-xs">{ hobby }</div>) }
 							</div>
 						</div>

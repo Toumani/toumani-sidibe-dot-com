@@ -5,7 +5,7 @@ export interface Resume {
     addressLines: AddressLine[],
     links: Link[],
     employments: Activity[],
-    educations: Activity[],
+    educations: Education[],
     internships: Activity[],
     projects: Activity[],
     skills: Skill[],
@@ -28,8 +28,8 @@ export interface Activity {
     type: "employment" | "education" | "internship" | "project"
     role: string,
     employer: string,
-    startDateJSON: { year: number, month: number },
-    endDateJSON: { year: number, month: number } | null,
+    startDateJSON: DateJSON,
+    endDateJSON: DateJSON | null,
     city: string, // TODO change city to location
     description: string,
     assignments: string[],
@@ -37,8 +37,22 @@ export interface Activity {
     links: string[]
 }
 
+export interface Education {
+    school: string,
+    degree: string,
+    location: string,
+    description: string,
+    startDateJSON: DateJSON,
+    endDateJSON: DateJSON | null,
+}
+
 
 export interface Skill {
     name: string,
     level: 1 | 2 | 3 | 4 | 5,
+}
+
+export interface DateJSON {
+    month: number,
+    year: number,
 }

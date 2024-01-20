@@ -1,3 +1,5 @@
+import { DateJSON } from "./types";
+
 export const uppercaseFirst = (word: string): string => {
 	if (word.length == 0)
 		return ''
@@ -33,4 +35,16 @@ export const monthToEnglish = (month: number): string => {
  */
 export const formatDate = (date: Date): string => {
 	return monthToEnglish(date.getMonth()) + ' ' + date.getFullYear();
+}
+
+export const formatToPeriod = (startDate: DateJSON, endDate?: DateJSON | null) => {
+	return `${startDate.year}${!endDate ? ' — Present' : startDate.year === endDate.year ? "" : ` — ${endDate.year}`}`
+}
+
+const displayJSONDate = (date: DateJSON) => {
+	return `${date.month < 10 ? "0" : ""}${date.month}/${date.year}`
+}
+
+export const formatToMonthlyPeriod = (startDate: DateJSON, endDate?: DateJSON | null) => {
+	return `${displayJSONDate(startDate)} — ${!endDate ? 'Present' : displayJSONDate(endDate)}`
 }

@@ -11,6 +11,7 @@ import React, { PropsWithChildren } from "react";
 import PlayWithMe from "../components/PlayWithMe";
 import { Activity } from "../lib/types";
 import resume from "../lib/resume";
+import { formatToMonthlyPeriod } from "../lib/utils";
 
 interface Article {
 	id: string,
@@ -72,7 +73,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 							<div key={employment.id} className="relative">
 								<span className="hidden md:block absolute w-4 h-4 rounded-full bg-teal-600" style={{ top: '0.5rem', left: '-3.65rem' }}></span>
 								<h4 className="text-2xl font-semibold">{ employment.role } at { employment.employer }</h4>
-								<p className="ml-1 font-light text-sm italic text-gray-400">{ `${employment.startDateJSON.month}/${employment.startDateJSON.year} — ${employment.endDateJSON ? employment.endDateJSON.month + '/' + employment.endDateJSON.year : 'Present'}` }</p>
+								<p className="ml-1 font-light text-sm italic text-gray-400">{ `${formatToMonthlyPeriod(employment.startDateJSON, employment.endDateJSON)}` }</p>
 								<ul className="mt-1 list-disc list-inside font-light">
 									{ employment.assignments.map(assignment => <li key={assignment}>{ assignment }</li>) }
 								</ul>
