@@ -9,6 +9,8 @@ import { BuildingOfficeIcon, CodeBracketIcon } from "@heroicons/react/24/solid";
 import { ArrowSmallDownIcon } from "@heroicons/react/24/outline";
 import React, { PropsWithChildren } from "react";
 import PlayWithMe from "../components/PlayWithMe";
+import { Activity } from "../lib/types";
+import resume from "../lib/resume";
 
 interface Article {
 	id: string,
@@ -24,22 +26,10 @@ interface App {
 	url: string,
 }
 
-interface Employment {
-	id: string,
-	company: string,
-	role: string,
-	startMonth: number,
-	startYear: number,
-	endMonth: number | null,
-	endYear: number | null,
-	assignments: string[],
-	keywords: string[],
-}
-
 interface HomeProps {
 	articles: Article[],
 	apps: App[],
-	employments: Employment[],
+	employments: Activity[],
 }
 
 const Home = ({ articles, apps, employments }: HomeProps) => {
@@ -57,7 +47,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 					I enjoy building web apps and playing around with cutting edge technologies that take software development to the next level.<br />
 					<Link href={`/about`}>
 						<span className="text-teal-600 cursor-pointer">Learn more</span>
-						<ChevronRightIcon className="inline h-3 h-3 ml-2 text-teal-600" strokeWidth={4} />
+						<ChevronRightIcon className="inline h-3 ml-2 text-teal-600" strokeWidth={4} />
 					</Link>
 				</p>
 				<ul className="flex flex-row justify-start space-x-8">
@@ -81,8 +71,8 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 						employments.map(employment => (
 							<div key={employment.id} className="relative">
 								<span className="hidden md:block absolute w-4 h-4 rounded-full bg-teal-600" style={{ top: '0.5rem', left: '-3.65rem' }}></span>
-								<h4 className="text-2xl font-semibold">{ employment.role } at { employment.company }</h4>
-								<p className="ml-1 font-light text-sm italic text-gray-400">{ `${employment.startMonth}/${employment.startYear} — ${employment.endMonth ? employment.endMonth + '/' + employment.endYear : 'Present'}` }</p>
+								<h4 className="text-2xl font-semibold">{ employment.role } at { employment.employer }</h4>
+								<p className="ml-1 font-light text-sm italic text-gray-400">{ `${employment.startDateJSON.month}/${employment.startDateJSON.year} — ${employment.endDateJSON ? employment.endDateJSON.month + '/' + employment.endDateJSON.year : 'Present'}` }</p>
 								<ul className="mt-1 list-disc list-inside font-light">
 									{ employment.assignments.map(assignment => <li key={assignment}>{ assignment }</li>) }
 								</ul>
@@ -101,7 +91,7 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 									<p className="text-base text-gray-400 text-justify line-3">{ article.content }</p>
 									<div className="flex flex-row items-center space-x-2">
 										<span className="text-teal-600">Read article</span>
-										<ChevronRightIcon className="h-3 h-3 text-teal-600" strokeWidth={4} />
+										<ChevronRightIcon className="h-3 text-teal-600" strokeWidth={4} />
 									</div>
 								</article>
 							</Link>
@@ -142,13 +132,12 @@ const Home = ({ articles, apps, employments }: HomeProps) => {
 							{ employments.map(employment => {
 								return (
 									<div key={employment.id} className="flex flex-row items-center space-x-4">
-										<Image className="rounded-full" src={`/logos/${employment.id}.jpg`} alt={employment.company} width={36}
-													 height={36}/>
+										<Image className="rounded-full" src={`/logos/${employment.id}.jpg`} alt={employment.employer} width={36} height={36} />
 										<div className="flex flex-col grow">
-											<h4 className="text-base font-bold">{employment.company}</h4>
+											<h4 className="text-base font-bold">{ employment.employer }</h4>
 											<div className="flex flex-row justify-between text-sm text-gray-400">
 												<span>{ employment.role }</span>
-												<span>{`${employment.startYear}${employment.startYear !== employment.endYear ? ` — ${employment.endYear == null ? 'Present' : employment.endYear}` : '' }`}</span>
+												<span>{`${employment.startDateJSON.year}${employment.endDateJSON === null ? ' — Present' : employment.startDateJSON.year === employment.endDateJSON.year ? "" : ` — ${employment.endDateJSON.year}`}`}</span>
 											</div>
 										</div>
 									</div>
@@ -204,71 +193,12 @@ export const getStaticProps: GetStaticProps<{ articles: Article[] }> = async () 
 		},
 	]
 
-	const employments: Employment[] = [
-		{
-			id: 'maltem-africa',
-			company: 'Maltem Africa',
-			role: 'Fullstack Developer',
-			startMonth: 4,
-			startYear: 2023,
-			endMonth: null,
-			endYear: null,
-			assignments: [
-				'Typescript, React, MaterialUI, Agile',
-			],
-			keywords: ['Typescript', 'React', 'MaterialUI', 'Agile']
-		},
-		{
-			id: 'salesforce',
-			company: 'Salesforce',
-			role: 'Technical Consultant',
-			startMonth: 1,
-			startYear: 2023,
-			endMonth: 3,
-			endYear: 2023,
-			assignments: [
-				'Learned Apex programming language and Lightning Web Component technology',
-				'Earned experience on the Salesforce platform',
-			],
-			keywords: ['Apex', 'LWC', 'Salesforce']
-		},
-		{
-			id: 'perenity-software',
-			company: 'Perenity Software',
-			role: 'Java EE Consultant',
-			startMonth: 11,
-			startYear: 2019,
-			endMonth: 11,
-			endYear: 2022,
-			assignments: [
-				'Designed a fluent functional API to streamline Swing UI creation',
-				'Set up desktop application architecture and migrated from Java Swing to JavaFX',
-				'Created middleware to allow communication between web front end and back end using REST'
-			],
-			keywords: ['Java Swing', 'JavaFX', 'Spring Boot', 'EJB', 'Oracle']
-		},
-		{
-			id: 'adria-bt',
-			company: 'Adria Business & Technology',
-			role: 'Full Stack Developer',
-			startMonth: 7,
-			startYear: 2019,
-			endMonth: 10,
-			endYear: 2019,
-			assignments: [
-				'Participated in migrating from monolithic to microservices.',
-				'In charge of refactoring code to match best practice guidelines.',
-			],
-			keywords: ['React', 'Spring Boot', 'SOAP']
-		}
-	];
-
 	return {
 		props: {
 			name: 'Home',
 			articles,
 			apps,
-			employments
+			employments: resume.employments
 		},
 	}
 }
