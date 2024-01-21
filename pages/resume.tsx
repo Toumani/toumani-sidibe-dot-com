@@ -20,7 +20,7 @@ const ResumePage: React.FC<ResumeProps> = ({ resume }: ResumeProps) => {
 				<h1 className="text-3xl text-white font-bold lg:text-5xl">Resume</h1>
 				<ResumeJsx resume={resume} />
 
-				<a className="m-auto px-4 py-2 text-center rounded-lg bg-teal-600 font-bold" href="/api/resume" download>
+				<a className="m-auto px-4 py-2 text-center rounded-lg bg-teal-600 font-bold" href="/Toumani_SIDIBE-resume.pdf" download>
 					Download CV
 					<ArrowSmallDownIcon className="inline-block ml-2" width={16} height={16} strokeWidth={3} />
 				</a>
