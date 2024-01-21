@@ -155,6 +155,8 @@ const resume: Resume = {
         { name: 'JUnit', level: 3 },
         { name: 'Exposed', level: 3 },
 
+        { name: 'LangChain', level: 1 },
+
         { name: 'Jetpack Compose', level: 1 },
 
         { name: 'SQL', level: 4 },
@@ -165,6 +167,8 @@ const resume: Resume = {
         { name: 'gradle', level: 1 },
         { name: 'git', level: 5 },
         { name: 'Linux', level: 4 },
+
+        { name: 'Figma', level: 4 },
     ],
     languages: [
         { name: 'French', level: 5 },
